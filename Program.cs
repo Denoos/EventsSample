@@ -106,7 +106,8 @@ class Tamagocha
                 case 9: Gaming(); break;
                 default: break;
             }
-                ConsoleKeyInfo key;
+            Thread.Sleep(3000);
+            ConsoleKeyInfo key;
                 key = Console.ReadKey();
 
                 if (key.Key == ConsoleKey.P)
@@ -245,5 +246,8 @@ class Tamagocha
         Console.WriteLine($"{Name}: Health:{Health} Hungry:{Hungry} Dirty:{Dirty} Thirsty:{Thirsty} IsDead:{IsDead}".PadRight(250));
     }
 
-
+    public interface IPresent
+    { 
+    
+    }
 }
