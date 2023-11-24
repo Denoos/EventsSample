@@ -88,10 +88,14 @@ class Tamagocha
 
     private void LifeCircle(object? obj)
     {
+        var polandMap = new PolandMap();
+        var walterPP = new WalterPP();
+        var panzerKampfwaken = new PanzerKampfwaken();
+
         while (!IsDead)
         {
             Thread.Sleep(7000);
-            int rnd = random.Next(0, 6);
+            int rnd = random.Next(0, 10);
             switch(rnd)
             {
                 case 0: JumpMinute(); break;
@@ -122,6 +126,20 @@ class Tamagocha
                 Health -= 70;
             if (Health <= 0)
                 IsDead = true;
+            if (key.Key == ConsoleKey.A)
+            switch (random.Next(0, 9))
+            {
+                case 0: polandMap.Open(); break;
+                case 1: polandMap.Gnaw(); break;
+                case 2: polandMap.Smash(); break;
+                case 3: walterPP.Open(); break;
+                case 4: walterPP.Gnaw(); break;
+                case 5: walterPP.Smash(); break;
+                case 6: panzerKampfwaken.Open(); break;
+                case 7: panzerKampfwaken.Gnaw(); break;
+                case 8: panzerKampfwaken.Smash(); break;
+                default: break;
+            }
         }
     }
 
@@ -245,9 +263,62 @@ class Tamagocha
     {
         Console.WriteLine($"{Name}: Health:{Health} Hungry:{Hungry} Dirty:{Dirty} Thirsty:{Thirsty} IsDead:{IsDead}".PadRight(250));
     }
-
     public interface IPresent
-    { 
-    
+    {
+        void Open();
+        void Gnaw();
+        void Smash();
+
+    }
+    public class PolandMap : IPresent
+    {
+        public void Gnaw()
+        {
+            Console.Write($"Тамагоча внезапно начинает грызть Польшу по кусочкам как угорелый. Это продолжается целую вечность. ".PadRight(250));
+        }
+
+        public void Open()
+        {
+            Console.Write($"Тамагоча внезапно начинает изучать карту Польши для подготовки нападения. Это продолжается целую вечность. ".PadRight(250));
+        }
+
+        public void Smash()
+        {
+            Console.Write($"Тамагоча внезапно начинает делить Польшу как угорелый.".PadRight(250));
+        }
+    }
+    public class  WalterPP : IPresent
+    {
+        public void Gnaw()
+        {
+            Console.Write($"Тамагоча внезапно начинает грызть вальтер, чтобы проверить качество металла. Это продолжается целую вечность. ".PadRight(250));
+        }
+
+        public void Open()
+        {
+            Console.Write($"Тамагоча внезапно начинает стрелять из вальтера по евреям. Это продолжается целую вечность. ".PadRight(250));
+        }
+
+        public void Smash()
+        {
+            Console.Write($"Тамагоча внезапно сломал вальтер и достал PanzerFaust как угорелый.".PadRight(250));
+        }
+    }
+    public class PanzerKampfwaken : IPresent
+    {
+        public void Gnaw()
+        {
+            Console.Write($"Тамагоча внезапно начинает грызть Мауса как угорелый. Это продолжается целую вечность. ".PadRight(250));
+        }
+
+        public void Open()
+        {
+            Console.Write($"Тамагоча внезапно начинает изучать Мауса. Это продолжается целую вечность. ".PadRight(250));
+        }
+
+        public void Smash()
+        {
+            Console.Write($"Тамагоча внезапно начинает ломать Мауса как угорелый.".PadRight(250));
+        }
     }
 }
