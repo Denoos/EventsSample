@@ -10,24 +10,22 @@ tamagocha.HealthChanged += Tamagocha_HealthChanged;
 void Tamagocha_HungryChanged(object? sender, EventArgs e)
 {
     Console.SetCursorPosition(0, 0);
-    Console.WriteLine($"{tamagocha.Name} голодает! Показатель голода изменен: {tamagocha.Hungry}".PadRight(250));
+    Console.Write($"{tamagocha.Name} голодает! Показатель голода изменен: {tamagocha.Hungry}".PadRight(250));
 }
-
 void Tamagocha_ThirstyChanged(object? sender, EventArgs e)
 {
     Console.SetCursorPosition(0, 1);
-    Console.WriteLine($"{tamagocha.Name} хочет водички (ну или водочки)))! Показатель жажды изменен: {tamagocha.Thirsty}".PadRight(250));
+    Console.Write($"{tamagocha.Name} хочет водички (ну или водочки)))! Показатель жажды изменен: {tamagocha.Thirsty}".PadRight(250));
 }
-
 void Tamagocha_DirtyChanged(object? sender, EventArgs e)
 {
     Console.SetCursorPosition(0, 2);
-    Console.WriteLine($"{tamagocha.Name} хочет пАмЫцА! Показатель грязюки изменен: {tamagocha.Dirty}".PadRight(250));
+    Console.Write($"{tamagocha.Name} хочет пАмЫцА! Показатель грязюки изменен: {tamagocha.Dirty}".PadRight(250));
 }
 void Tamagocha_HealthChanged(object? sender, EventArgs e)
 {
     Console.SetCursorPosition(0, 3);
-    Console.WriteLine($"{tamagocha.Name} близок к смерти! Показатель здоровья изменен: {tamagocha.Health}".PadRight(250));
+    Console.Write($"{tamagocha.Name} близок к смерти! Показатель здоровья изменен: {tamagocha.Health}".PadRight(250));
 }
 
 class Tamagocha
@@ -80,6 +78,7 @@ class Tamagocha
         Thread thread = new Thread(LifeCircle);
         thread.Start();
     }
+
     Random random = new Random();
     private int hungry = 0;
     private int thirsty = 0;
@@ -94,7 +93,7 @@ class Tamagocha
 
         while (!IsDead)
         {
-            Thread.Sleep(7000);
+            Thread.Sleep(100);
             int rnd = random.Next(0, 10);
             switch(rnd)
             {
@@ -110,7 +109,6 @@ class Tamagocha
                 case 9: Gaming(); break;
                 default: break;
             }
-            Thread.Sleep(3000);
             ConsoleKeyInfo key;
                 key = Console.ReadKey();
 
@@ -123,7 +121,20 @@ class Tamagocha
                 if (key.Key == ConsoleKey.C);
                 PopyMit();
             if (Hungry >= 100 || Thirsty >= 100 || Dirty >= 100)
+            {
                 Health -= 70;
+                Hungry = 100;
+                Thirsty = 100;
+                Dirty = 100;
+            }
+            if (Hungry <= 0 || Thirsty <= 0 || Dirty <= 0)
+            {
+                Health += 40;
+                Hungry = 0;
+                Thirsty = 0;
+                Dirty = 0;
+            }
+
             if (Health <= 0)
                 IsDead = true;
             if (key.Key == ConsoleKey.A)
@@ -146,22 +157,21 @@ class Tamagocha
     public void Feed()
     {
         Console.SetCursorPosition(0, 4);
-        Console.WriteLine($"{Name} начинает ХаВаТь как угорелый, поскольку вы его покормили. Это продолжается целую минуту. Показатели голода, жажды и грязюки изменены!".PadRight(250));
+        Console.Write($"{Name} начинает ХаВаТь как угорелый, поскольку вы его покормили. Это продолжается целую минуту. Показатели голода, жажды и грязюки изменены!".PadRight(250));
         Hungry -= random.Next(20, 30);
     }
     public void Piot()
     {
         Console.SetCursorPosition(0, 5);
-        Console.WriteLine($"{Name} начинает пить пиво как угорелый, поскольку вы его споили. Это продолжается целую минуту. Показатели голода, жажды и грязюки изменены!".PadRight(250));
+        Console.Write($"{Name} начинает пить пиво как угорелый, поскольку вы его споили. Это продолжается целую минуту. Показатели голода, жажды и грязюки изменены!".PadRight(250));
         Thirsty -= random.Next(20, 30);
     }
     public void PopyMit()
     {
         Console.SetCursorPosition(0, 6);
-        Console.WriteLine($"{Name} начинает мыться как угорелый, поскольку вы его моите. Это продолжается целую минуту. Показатели голода, жажды и грязюки изменены!".PadRight(250));
+        Console.Write($"{Name} начинает мыться как угорелый, поскольку вы его моите. Это продолжается целую минуту. Показатели голода, жажды и грязюки изменены!".PadRight(250));
         Dirty -= random.Next(20, 30);
     }
-
     private void FallSleep()
     {
         Console.SetCursorPosition(0, 10);
@@ -198,7 +208,6 @@ class Tamagocha
         Dirty += random.Next(5, 30);
         Thread.Sleep(1000);
     }
-
     private void JumpMinute()
     {
         Console.SetCursorPosition(0, 10);
@@ -208,7 +217,6 @@ class Tamagocha
         Dirty += random.Next(5, 15);
         Thread.Sleep(6000);
     }
-
     private void Spotknulsa()
     {
         Console.SetCursorPosition(0, 10);
@@ -247,7 +255,6 @@ class Tamagocha
         Dirty += random.Next(5, 30);
         Thread.Sleep(1000);
     }
-
     private void Gaming()
     {
         Console.SetCursorPosition(0, 10);
@@ -258,67 +265,74 @@ class Tamagocha
         Health -= random.Next(30, 40);
         Thread.Sleep(6000);
     }
-
     public void PrintInfo()
     {
-        Console.WriteLine($"{Name}: Health:{Health} Hungry:{Hungry} Dirty:{Dirty} Thirsty:{Thirsty} IsDead:{IsDead}".PadRight(250));
+        Console.Write($"{Name}: Health:{Health} Hungry:{Hungry} Dirty:{Dirty} Thirsty:{Thirsty} IsDead:{IsDead}".PadRight(250));
     }
     public interface IPresent
     {
         void Open();
         void Gnaw();
         void Smash();
-
     }
     public class PolandMap : IPresent
     {
         public void Gnaw()
         {
-            Console.Write($"Тамагоча внезапно начинает грызть Польшу по кусочкам как угорелый. Это продолжается целую вечность. ".PadRight(250));
+            var tamagocha = new Tamagocha();
+            Console.Write($"{tamagocha.Name} внезапно начинает грызть Польшу по кусочкам как угорелый. Это продолжается целую вечность. ".PadRight(250));
         }
 
         public void Open()
         {
-            Console.Write($"Тамагоча внезапно начинает изучать карту Польши для подготовки нападения. Это продолжается целую вечность. ".PadRight(250));
+            var tamagocha = new Tamagocha();
+            Console.Write($"{tamagocha.Name} внезапно начинает изучать карту Польши для подготовки нападения. Это продолжается целую вечность. ".PadRight(250));
         }
 
         public void Smash()
         {
-            Console.Write($"Тамагоча внезапно начинает делить Польшу как угорелый.".PadRight(250));
+            var tamagocha = new Tamagocha();
+            Console.Write($"{tamagocha.Name} внезапно начинает делить Польшу как угорелый.".PadRight(250));
         }
     }
     public class  WalterPP : IPresent
     {
         public void Gnaw()
         {
-            Console.Write($"Тамагоча внезапно начинает грызть вальтер, чтобы проверить качество металла. Это продолжается целую вечность. ".PadRight(250));
+            var tamagocha = new Tamagocha();
+            Console.Write($"{tamagocha.Name} внезапно начинает грызть вальтер, чтобы проверить качество металла. Это продолжается целую вечность. ".PadRight(250));
         }
 
         public void Open()
         {
-            Console.Write($"Тамагоча внезапно начинает стрелять из вальтера по евреям. Это продолжается целую вечность. ".PadRight(250));
+            var tamagocha = new Tamagocha();
+            Console.Write($"{tamagocha.Name} внезапно начинает стрелять из вальтера по евреям. Это продолжается целую вечность. ".PadRight(250));
         }
 
         public void Smash()
         {
-            Console.Write($"Тамагоча внезапно сломал вальтер и достал PanzerFaust как угорелый.".PadRight(250));
+            var tamagocha = new Tamagocha();
+            Console.Write($"{tamagocha.Name} внезапно сломал вальтер и достал PanzerFaust как угорелый.".PadRight(250));
         }
     }
     public class PanzerKampfwaken : IPresent
     {
         public void Gnaw()
         {
-            Console.Write($"Тамагоча внезапно начинает грызть Мауса как угорелый. Это продолжается целую вечность. ".PadRight(250));
+            var tamagocha = new Tamagocha();
+            Console.Write($"{tamagocha.Name} внезапно начинает грызть Мауса как угорелый. Это продолжается целую вечность. ".PadRight(250));
         }
 
         public void Open()
         {
-            Console.Write($"Тамагоча внезапно начинает изучать Мауса. Это продолжается целую вечность. ".PadRight(250));
+            var tamagocha = new Tamagocha();
+            Console.Write($"{tamagocha.Name} внезапно начинает изучать Мауса. Это продолжается целую вечность. ".PadRight(250));
         }
 
         public void Smash()
         {
-            Console.Write($"Тамагоча внезапно начинает ломать Мауса как угорелый.".PadRight(250));
+            var tamagocha = new Tamagocha();
+            Console.Write($"{tamagocha.Name} внезапно начинает ломать Мауса как угорелый.".PadRight(250));
         }
     }
 }
