@@ -98,13 +98,14 @@ class Tamagocha
                 case 2: Burpy(); break;
                 case 3: Swimming();  break;
                 case 4: GodsGame();  break;
-                case 5: break;
-                case 6: break;
-                case 7: break;
-                case 8: break;
-                case 9: break;
+                case 5: Spotknulsa();  break;
+                case 6: Running();  break;
+                case 7: Paika();  break;
+                case 8: Reading();  break;
+                case 9: Gaming(); break;
                 default: break;
             }
+            if (Console.ReadKey())
         }
     }
 
@@ -155,8 +156,60 @@ class Tamagocha
         Thread.Sleep(6000);
     }
 
+    private void Spotknulsa()
+    {
+        Console.SetCursorPosition(0, 10);
+        Console.Write($"{Name} внезапно начинает спотыкаться как угорелый. Это продолжается целую минуту. Показатели голода, жажды и грязюки изменены!");
+        Thirsty += random.Next(5, 10);
+        Hungry += random.Next(5, 10);
+        Dirty += random.Next(5, 10);
+        Health -= random.Next(15, 20);
+        Thread.Sleep(1500);
+    }
+    private void Running()
+    {
+        Console.SetCursorPosition(0, 10);
+        Console.Write($"{Name} внезапно начинает бегать.");
+        Thirsty += random.Next(5, 10);
+        Hungry += random.Next(5, 10);
+        Dirty += random.Next(5, 10);
+        Thread.Sleep(500);
+    }
+    private void Paika()
+    {
+        Console.SetCursorPosition(0, 10);
+        Console.Write($"{Name} внезапно начинает паять на парах Вишни. Показатели голода, жажды и грязюки изменены!");
+        Thirsty += random.Next(5, 10);
+        Hungry += random.Next(5, 10);
+        Dirty -= 30;
+        Health -= random.Next(15, 20);
+        Thread.Sleep(4000);
+    }
+    private void Reading()
+    {
+        Console.SetCursorPosition(0, 10);
+        Console.Write($"{Name} внезапно начинает пытается прочитать 50 книг за 10 секунд как угорелый. Показатели голода, жажды и грязюки изменены!");
+        Thirsty += random.Next(5, 16);
+        Hungry += random.Next(5, 16);
+        Dirty += random.Next(5, 30);
+        Thread.Sleep(1000);
+    }
+
+    private void Gaming()
+    {
+        Console.SetCursorPosition(0, 10);
+        Console.Write($"{Name} внезапно начинает скупать всю продукцию Ardor Gaming как угорелый. Это продолжается целую вечность. Показатели голода, жажды, грязюки и психического здоровья изменены!");
+        Thirsty += random.Next(5, 15);
+        Hungry += random.Next(5, 15);
+        Dirty += random.Next(5, 15);
+        Health -= random.Next(30, 40);
+        Thread.Sleep(6000);
+    }
+
     public void PrintInfo()
     {
         Console.WriteLine($"{Name}: Health:{Health} Hungry:{Hungry} Dirty:{Dirty} Thirsty:{Thirsty} IsDead:{IsDead}");
     }
+
+
 }
